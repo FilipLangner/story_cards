@@ -5,3 +5,6 @@ local_settings.py
 Final_project/__pycache__/
 story_cards/__pycache__/
 story_cards/migrations/__pycache__/
+accounts/migrations/__pycache__/
+accounts/__pycache__/
+
