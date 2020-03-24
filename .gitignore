@@ -1,2 +1,7 @@
 venv-rest/
 .idea/
+local_settings.py
+
+Final_project/__pycache__/
+story_cards/__pycache__/
+story_cards/migrations/__pycache__/
