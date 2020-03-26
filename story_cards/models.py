@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
 
@@ -9,7 +10,7 @@ class User(AbstractUser):
 
 class Team(models.Model):
     name = models.CharField(max_length=64)
-    mission_statement = models.TextField()
+    description = models.CharField(max_length=256)
     students = models.ManyToManyField(User)
 
 class Flashcard(models.Model):
