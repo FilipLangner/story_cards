@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Team detail</title>
+</head>
+<body>
+    <p>Team name: {{ team.name }}<br>
+    Team description: {{ team.description }}<br>
+    Team students:
+    {% for student in students %}
+        {{student}},
+    {% endfor %}
+    <br>
+    <ul> Team decks
+    {% for deck in decks %}
+        <li>{{ deck }}</li>
+    {% endfor %}
+    </ul>
+    </p>
+    <a href="{% url 'story-cards:add-deck' team.id %}">Add flashcard deck</a>
+
+</body>
+</html>

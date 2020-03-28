@@ -20,5 +20,10 @@ from story_cards import views
 app_name = 'story_cards'
 urlpatterns = [
     path('add_team/', views.AddTeamView.as_view(), name='add-team'),
-
+    path('team_detail/<int:team_id>/', views.ShowTeamDetailView.as_view(), name='team-detail'),
+    path('teams/', views.ListAllTeamsView.as_view(), name='list-teams'),
+    path('edit_team/<int:team_id>/', views.EditTeamView.as_view(), name='edit-team'),
+    path('add_deck/<int:team_id>/', views.AddDeckView.as_view(), name='add-deck'),
+    path('add_flashcard/<int:team_id>/<int:deck_id>/', views.AddFlashcardView.as_view(), name='add-flashcard'),
+    path('edit_deck/<int:team_id>/<int:deck_id>/', views.EditDeckView.as_view(), name='edit-deck'),
 ]

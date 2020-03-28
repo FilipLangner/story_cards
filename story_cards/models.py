@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse_lazy
+from django.utils import timezone
 
-from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
 
@@ -12,6 +13,23 @@ class Team(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
     students = models.ManyToManyField(User)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse_lazy('story-cards:team-detail', kwargs={"team_id": self.id})
+
+    def __str__(self):
+        return self.name
+
+class Deck(models.Model):
+    name = models.CharField(max_length=128)
+    # flashcards = models.ManyToManyField(Flashcard)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    team = models.ManyToManyField(Team)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 class Flashcard(models.Model):
     source_word = models.CharField(max_length=256)
@@ -20,10 +38,9 @@ class Flashcard(models.Model):
     synonym = models.CharField(max_length=256)
     antonym = models.CharField(max_length=256)
     # picture = models.ImageField() TODO adding image as 'should have'
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    deck = models.ManyToManyField(Deck)
 
-class Deck(models.Model):
-    name = models.CharField(max_length=128)
-    flashcards = models.ManyToManyField(Flashcard)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    team = models.ManyToManyField(Team)
+    def __str__(self):
+        return f'{self.source_word} ({self.target_word})'

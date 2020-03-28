@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Create deck{% endblock %}
+
+{% block content %}
+    <h2>Create deck</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add a new flashcard to the deck</button>
+    </form><br>
+    <ul>Flashcards:
+    {% for flashcard in flashcards %}
+        <li>{{ flashcard }}</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'story-cards:team-detail' team.id %}">Done</a>
+{% endblock %}
