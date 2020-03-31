@@ -17,7 +17,7 @@
     <br>
     <ul> Team decks
     {% for deck in decks %}
-        <li>{{ deck }}</li>
+        <li>{{ deck }}<a href="{% url 'story-cards:edit-deck' team.id deck.id %}">Edit deck</a></li>
     {% endfor %}
     </ul>
     </p>

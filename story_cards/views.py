@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from story_cards.forms import AddTeamForm, AddDeckForm, AddFlashcardForm
-from story_cards.models import Team, Deck
+from story_cards.models import Team, Deck, Flashcard
 
 
 class AddTeamView(generic.CreateView):
@@ -79,6 +79,7 @@ class AddFlashcardView(generic.CreateView):
 class EditDeckView(generic.UpdateView):
     form_class = AddDeckForm
     template_name = "add_deck.html"
+    context_object_name = "deck"
 
     def get_object(self, queryset=None):
         deck_id = self.kwargs.get('deck_id')
@@ -95,6 +96,26 @@ class EditDeckView(generic.UpdateView):
         return reverse_lazy('story-cards:add-flashcard', kwargs={
             'team_id': self.kwargs.get('team_id'),
             'deck_id': self.object.id
+        })
+
+class DeleteFlashcardView(generic.DeleteView):
+    template_name = "delete_flashcard.html"
+    context_object_name = "flashcard"
+
+    def get_object(self, queryset=None):
+        flashcard_id = self.kwargs.get('flashcard_id')
+        return get_object_or_404(Flashcard, id=flashcard_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['team'] = get_object_or_404(Team, id=self.kwargs.get('team_id'))
+        context['deck'] = get_object_or_404(Deck, id=self.kwargs.get('deck_id'))
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('story-cards:edit-deck', kwargs={
+            'team_id': self.kwargs.get('team_id'),
+            'deck_id': self.kwargs.get('deck_id')
         })
 
 

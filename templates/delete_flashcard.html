@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete flashcard{% endblock %}
+
+{% block content %}
+  <h2>Delete flashcard</h2>
+  <form method="post">
+    {% csrf_token %}
+    <h1>Do you want to delete the flashcard: {{ flashcard }}</h1>
+    <p><input type="submit" value="Yes" /><a href="{% url 'story-cards:edit-deck' team.id deck.id %}">Cancel</a></p>
+  </form>
+{% endblock %}

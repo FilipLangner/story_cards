@@ -26,4 +26,6 @@ urlpatterns = [
     path('add_deck/<int:team_id>/', views.AddDeckView.as_view(), name='add-deck'),
     path('add_flashcard/<int:team_id>/<int:deck_id>/', views.AddFlashcardView.as_view(), name='add-flashcard'),
     path('edit_deck/<int:team_id>/<int:deck_id>/', views.EditDeckView.as_view(), name='edit-deck'),
+    path('delete_flashcard/<int:team_id>/<int:deck_id>/<int:flashcard_id>/', views.DeleteFlashcardView.as_view(),
+         name='delete-flashcard'),
 ]
