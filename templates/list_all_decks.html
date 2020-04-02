@@ -1,0 +1,16 @@
+{% extends 'home.html' %}
+
+{% block title %}
+    Decks
+{% endblock %}
+
+{% block content %}
+    <p>List of all decks
+    <ul>
+        {% for deck in deck_list %}
+            <li><a href="{{ deck.get_absolute_url }}">{{ deck }}</a> ({{ deck.team.name }})
+                <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}">Edit deck</a></li>
+        {% endfor %}
+    </ul>
+    </p>
+{% endblock %}

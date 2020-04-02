@@ -10,11 +10,20 @@ class AddTeamView(generic.CreateView):
     form_class = AddTeamForm
     template_name = "add_team.html"
 
+
 class ListAllTeamsView(generic.ListView):
     model = Team
-    template_name = "list_teams.html"
+    template_name = "list_all_teams.html"
     context_object_name = "team_list"
     queryset = Team.objects.all().order_by('name')
+
+
+class ListAllDecksView(generic.ListView):
+    model = Deck
+    template_name = "list_all_decks.html"
+    context_object_name = "deck_list"
+    queryset = Deck.objects.all().order_by('name')
+
 
 class ShowTeamDetailView(generic.DetailView):
     template_name = "team_detail.html"
@@ -32,6 +41,20 @@ class ShowTeamDetailView(generic.DetailView):
         context['decks'] = team.deck_set.all()
         return context
 
+class ShowDeckDetailView(generic.DeleteView):
+    template_name = "deck_detail.html"
+    context_object_name = "deck"
+
+    def get_object(self, queryset=None):
+        deck_id = self.kwargs.get('deck_id')
+        return get_object_or_404(Deck, id=deck_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        deck = get_object_or_404(Deck, id=self.kwargs.get('deck_id'))
+        context['flashcards'] = deck.flashcard_set.all()
+        return context
+
 class EditTeamView(generic.UpdateView):
     form_class = AddTeamForm
     template_name = "add_team.html"
@@ -40,6 +63,7 @@ class EditTeamView(generic.UpdateView):
     def get_object(self, queryset=None):
         team_id = self.kwargs.get('team_id')
         return get_object_or_404(Team, id=team_id)
+
 
 class AddDeckView(generic.CreateView):
     form_class = AddDeckForm
@@ -61,6 +85,7 @@ class AddDeckView(generic.CreateView):
         context['team'] = get_object_or_404(Team, id=self.kwargs.get('team_id'))
         return context
 
+
 class AddFlashcardView(generic.CreateView):
     form_class = AddFlashcardForm
     template_name = "add_flashcard.html"
@@ -75,6 +100,7 @@ class AddFlashcardView(generic.CreateView):
             'team_id': self.kwargs.get('team_id'),
             'deck_id': self.kwargs.get('deck_id')
         })
+
 
 class EditDeckView(generic.UpdateView):
     form_class = AddDeckForm
@@ -98,6 +124,7 @@ class EditDeckView(generic.UpdateView):
             'deck_id': self.object.id
         })
 
+
 class DeleteFlashcardView(generic.DeleteView):
     template_name = "delete_flashcard.html"
     context_object_name = "flashcard"
@@ -117,7 +144,3 @@ class DeleteFlashcardView(generic.DeleteView):
             'team_id': self.kwargs.get('team_id'),
             'deck_id': self.kwargs.get('deck_id')
         })
-
-
-
-

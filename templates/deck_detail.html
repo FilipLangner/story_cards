@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Deck detail
+{% endblock %}
+
+{% block content %}
+    <p>
+        Deck name: {{ deck.name }}<br>
+        Author: {{ deck.author }}<br>
+        Team: {{ deck.team }}<br>
+        Created: {{ deck.date_created }}<br>
+        Flashcards:
+        <ul>
+        {% for flashcard in flashcards %}
+            <li>{{ flashcard }}</li>
+        {% endfor %}
+        </ul>
+    </p>
+{% endblock %}
