@@ -19,7 +19,7 @@
                 <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
                     {{ deck }}</a>
             </div>
-            <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-primary mr-2    " role="button">
+            <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-primary mr-2" role="button">
                 Edit deck</a>
             <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary" role="button">
                 Play</a>

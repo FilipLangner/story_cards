@@ -11,7 +11,9 @@
                         {{ flashcard.source_word }}
                     </div>
                     <div class="card-body">
-                        picture
+                        {% if flashcard.picture %}
+                            <img src="{{ flashcard.picture.url }}" height="150">
+                        {% endif %}
                     </div>
                     <div class="card-footer">
                         {{ flashcard.target_word }}
@@ -20,5 +22,9 @@
             </div>
         {% endfor %}
     </div>
+</div>
+<div class="text-center">
+    <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary mt-3 mx-auto"
+       role="button">Play again</a>
 </div>
 {% endblock %}
