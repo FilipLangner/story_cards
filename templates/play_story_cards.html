@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+<div class="container">
+    <div class="row h-100">
+        {% for flashcard in flashcard_list %}
+            <div class="col-sm-4 text-center my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        {{ flashcard.source_word }}
+                    </div>
+                    <div class="card-body">
+                        picture
+                    </div>
+                    <div class="card-footer">
+                        {{ flashcard.target_word }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

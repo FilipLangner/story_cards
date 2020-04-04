@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
+import random
+
 from story_cards.forms import AddTeamForm, AddDeckForm, AddFlashcardForm
 from story_cards.models import Team, Deck, Flashcard
 
@@ -9,6 +11,7 @@ from story_cards.models import Team, Deck, Flashcard
 class AddTeamView(generic.CreateView):
     form_class = AddTeamForm
     template_name = "add_team.html"
+    success_url = reverse_lazy('story-cards:list-teams')
 
 
 class ListAllTeamsView(generic.ListView):
@@ -16,6 +19,15 @@ class ListAllTeamsView(generic.ListView):
     template_name = "list_all_teams.html"
     context_object_name = "team_list"
     queryset = Team.objects.all().order_by('name')
+
+class ListLoggedUserTeamsView(generic.ListView):
+    model = Team
+    template_name = "list_all_teams.html"
+    context_object_name = "team_list"
+
+    def get_queryset(self):
+        # return Team.objects.filter(students=self.request.user).order_by('name')
+        return self.request.user.team_set.order_by('name')
 
 
 class ListAllDecksView(generic.ListView):
@@ -144,3 +156,15 @@ class DeleteFlashcardView(generic.DeleteView):
             'team_id': self.kwargs.get('team_id'),
             'deck_id': self.kwargs.get('deck_id')
         })
+
+class PlayStoryCardsView(generic.ListView):
+    model = Flashcard
+    context_object_name = "flashcard_list"
+    template_name = "play_story_cards.html"
+
+    def get_queryset(self):
+        current_deck = Deck.objects.get(id=self.kwargs.get('deck_id'))
+        flashcard_list = list(Flashcard.objects.filter(deck=current_deck))
+        random.shuffle(flashcard_list)
+        flashcard_subset = flashcard_list[:3]
+        return flashcard_subset

@@ -5,12 +5,18 @@
 {% endblock %}
 
 {% block content %}
-    <p>List of all decks
-    <ul>
-        {% for deck in deck_list %}
-            <li><a href="{{ deck.get_absolute_url }}">{{ deck }}</a> ({{ deck.team.name }})
-                <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}">Edit deck</a></li>
-        {% endfor %}
-    </ul>
-    </p>
+    <div class="list-group">
+    {% for deck in deck_list %}
+        <br>
+        <div class="row">
+            <div class="col col-md-4">
+                <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
+                    {{ deck }} ({{ deck.team.name }})</a>
+            </div>
+            <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-primary" role="button">
+                Edit deck</a>
+        </div>
+
+    {% endfor %}
+    </div>
 {% endblock %}

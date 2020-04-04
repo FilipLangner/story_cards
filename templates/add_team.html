@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <h2>Create team</h2>
+  <h2>Create/update team</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
