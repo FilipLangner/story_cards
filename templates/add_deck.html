@@ -13,7 +13,9 @@
     </form><br>
     <ul>Flashcards:
     {% for flashcard in flashcards %}
-        <li>{{ flashcard }} <a href="{% url 'story-cards:delete-flashcard' team.id deck.id flashcard.id %}">Delete</a></li>
+        <li>{{ flashcard }} <a href="{% url 'story-cards:delete-flashcard' team.id deck.id flashcard.id %}">Delete</a>
+            <a href="{% url 'story-cards:edit-flashcard' team.id deck.id flashcard.id %}">Edit</a>
+        </li>
     {% endfor %}
     </ul>
     <a href="{% url 'story-cards:team-detail' team.id %}">Done</a>
