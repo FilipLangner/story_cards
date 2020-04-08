@@ -193,3 +193,13 @@ class PlayStoryCardsView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['deck'] = Deck.objects.get(id=self.kwargs.get('deck_id'))
         return context
+
+class LearnFlashcardsView(generic.ListView):
+    model = Flashcard
+    context_object_name = "flashcard_list"
+    template_name = "learn_flashcards.html"
+
+    def get_queryset(self):
+        current_deck = Deck.objects.get(id=self.kwargs.get('deck_id'))
+        flashcards_in_deck = Flashcard.objects.filter(deck=current_deck)
+        return flashcards_in_deck

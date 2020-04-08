@@ -21,6 +21,8 @@
             </div>
             <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-primary mr-2" role="button">
                 Edit deck</a>
+            <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-primary mr-2" role="button">
+                Learn</a>
             <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary" role="button">
                 Play</a>
         </div>

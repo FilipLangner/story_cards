@@ -35,4 +35,5 @@ urlpatterns = [
     path('delete_flashcard/<int:team_id>/<int:deck_id>/<int:flashcard_id>/', views.DeleteFlashcardView.as_view(),
          name='delete-flashcard'),
     path('play/<int:deck_id>/', views.PlayStoryCardsView.as_view(), name='play-storycards'),
+    path('learn_flashcards/<int:deck_id>/', views.LearnFlashcardsView.as_view(), name='learn-flashcards'),
 ]
