@@ -5,48 +5,103 @@
 }
 
 /* Flip card styling for flashcards */
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-.flip-card {
-  background-color: transparent;
-  width: 300px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front, .flip-card-back {
+/* THE MAINCONTAINER HOLDS EVERYTHING */
+.maincontainer{
   position: absolute;
+  width: 250px;
+  height: 320px;
+  background: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+/* THE CARD HOLDS THE FRONT AND BACK FACES */
+.thecard{
+  position: relative;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
 }
 
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-
-/* Style the back side */
-.flip-card-back {
-  background-color: dodgerblue;
-  color: white;
+/* THE PSUEDO CLASS CONTROLS THE FLIP ON MOUSEOVER AND MOUSEOUT */
+.thecard:hover{
   transform: rotateY(180deg);
+}
+
+/* THE FRONT FACE OF THE CARD, WHICH SHOWS BY DEFAULT */
+ .thefront{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: #ffc728;
+  color: #000;
+  border-radius: 20px;
+  border: solid #ffb028;
+}
+
+/* THE BACK FACE OF THE CARD, WHICH SHOWS ON MOUSEOVER */
+.theback{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: #ff8928;
+  color: #333;
+  text-align: center;
+  transform: rotateY(180deg);
+  border-radius: 20px;
+  border: solid #ff6928;
+}
+
+/*This block (starts here) is merely styling for the flip card, and is NOT an essential part of the flip code */
+.thefront h1, .theback h1{
+  font-family: 'zilla slab', sans-serif;
+  padding: 30px;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+
+.thefront p, .theback p{
+  font-family: 'zilla slab', sans-serif;
+  padding: 30px;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: center;
+}
+/*This block (ends here) is merely styling for the flip card, and is NOT an essential part of the flip code */
+
+/*Styling the images on teh flip cards to fit the card*/
+.my-image-container{
+  width:100%;
+  height:150px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  margin-bottom: 10px;
+  padding-bottom: 50px;
+}
+.my-image{
+  flex-shrink:0;
+  -webkit-flex-shrink: 0;
+  max-width:70%;
+  max-height:90%;
+  border: solid #ff6928;
+  border-radius: 20px;
+  margin-bottom: 10px;
+
 }

@@ -2,55 +2,48 @@
 
 {% block content %}
     <!--Carousel Wrapper-->
-    <div id="carousel-example-1z" class="carousel slide carousel-fade mt-5" data-ride="carousel" style="height: 200px">
+    <div id="carousel-example-1z" class="carousel slide carousel-fade mt-5" data-ride="carousel" style="height: 350px">
       <!--Slides-->
       <div class="carousel-inner my-auto" role="listbox">
         <!--First slide-->
-        <div class="carousel-item active" style="height: 200px">
-            <div class="col-sm-4 text-center mx-auto">
-                <div class="card" style="height: 200px">
-                    <div class="card-header">
-
+        <div class="carousel-item active" style="height: 350px">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>{{ flashcard_list.0.source_word }}</h1>
+                        <p></p>
                     </div>
-                    <div class="card-body row h-100">
-                        <div class="my-auto mx-auto">
-                            {{flashcard_list.0.source_word}}
-                        </div>
-                    </div>
-                    <div class="card-footer">
-
+                    <div class="theback">
+                        <h1>{{ flashcard_list.0.target_word }}</h1>
+                        <p>
+                        {% if flashcard_list.0.picture %}
+                            <div class="my-image-container">
+                                <img class="my-image" src="{{ flashcard_list.0.picture.url }}">
+                            </div>
+                        {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="carousel-item" style="height: 200px">
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <h1> Zobacz pod spód</h1>
-                </div>
-                <div class="flip-card-back">
-                  <h1>John Doe</h1>
-                  <p>Architect & Engineer</p>
-                  <p>We love that guy</p>
-                </div>
-              </div>
-            </div>
-        </div>
+
         {% for flashcard in flashcard_list|slice:"1:" %}
-        <div class="carousel-item" style="height: 200px">
-            <div class="col-sm-4 text-center mx-auto">
-                <div class="card" style="height: 200px">
-                    <div class="card-header">
-
+        <div class="carousel-item" style="height: 350px">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>{{ flashcard.source_word }}</h1>
+                        <p></p>
                     </div>
-                    <div class="card-body row h-100">
-                        <div class="mx-auto my-auto">
-                            {{flashcard.source_word}}
-                        </div>
-                    </div>
-                    <div class="card-footer">
-
+                    <div class="theback">
+                        <h1>{{ flashcard.target_word }}</h1>
+                        <p>
+                        {% if flashcard.picture %}
+                            <div class="my-image-container">
+                                <img class="my-image" src="{{ flashcard.picture.url }}">
+                            </div>
+                        {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
