@@ -1,58 +1,74 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!--Carousel Wrapper-->
-<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-    <li data-target="#carousel-example-1z" data-slide-to="2"></li>
-  </ol>
-  <!--/.Indicators-->
-  <!--Slides-->
-  <div class="carousel-inner" role="listbox">
-    <!--First slide-->
-    <div class="carousel-item active">
-        <div class="col-sm-4 text-center my-auto">
-                <div class="card">
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade mt-5" data-ride="carousel" style="height: 200px">
+      <!--Slides-->
+      <div class="carousel-inner my-auto" role="listbox">
+        <!--First slide-->
+        <div class="carousel-item active" style="height: 200px">
+            <div class="col-sm-4 text-center mx-auto">
+                <div class="card" style="height: 200px">
                     <div class="card-header">
-                        czesc
+
                     </div>
-                    <div class="card-body">
-                        pa
+                    <div class="card-body row h-100">
+                        <div class="my-auto mx-auto">
+                            {{flashcard_list.0.source_word}}
+                        </div>
                     </div>
                     <div class="card-footer">
-                        elo
+
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="carousel-item" style="height: 200px">
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h1> Zobacz pod spód</h1>
+                </div>
+                <div class="flip-card-back">
+                  <h1>John Doe</h1>
+                  <p>Architect & Engineer</p>
+                  <p>We love that guy</p>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% for flashcard in flashcard_list|slice:"1:" %}
+        <div class="carousel-item" style="height: 200px">
+            <div class="col-sm-4 text-center mx-auto">
+                <div class="card" style="height: 200px">
+                    <div class="card-header">
+
+                    </div>
+                    <div class="card-body row h-100">
+                        <div class="mx-auto my-auto">
+                            {{flashcard.source_word}}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <!--/.Slides-->
+      <!--Controls-->
+      <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      <!--/.Controls-->
     </div>
-    <!--/First slide-->
-    <!--Second slide-->
-    <div class="carousel-item">
-      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg"
-        alt="Second slide">
-    </div>
-    <!--/Second slide-->
-    <!--Third slide-->
-    <div class="carousel-item">
-      <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
-        alt="Third slide">
-    </div>
-    <!--/Third slide-->
-  </div>
-  <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
-</div>
-<!--/.Carousel Wrapper-->
+    <!--/.Carousel Wrapper-->
 {% endblock %}
