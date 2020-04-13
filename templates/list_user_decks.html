@@ -1,23 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'home.html' %}
 
 {% block title %}
-    Team detail
+    My decks
 {% endblock %}
 
 {% block content %}
-    Team name: {{ team.name }}<br>
-    Team description: {{ team.description }}<br>
-    Team students:
-    {% for student in students %}
-        {{student}},
-    {% endfor %}
-    <br>
-    <div class="list-group">Decks:
-    {% for deck in decks %}
-        <div class="row mb-1">
+    <div class="list-group">
+    {% for deck in deck_list %}
+        <br>
+        <div class="row">
             <div class="col col-md-4">
                 <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
-                    {{ deck }}</a>
+                    {{ deck }} ({{ deck.team.name }})</a>
             </div>
             <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-primary mr-2" role="button">
                 Edit deck</a>
@@ -28,7 +22,5 @@
         </div>
 
     {% endfor %}
-    <div>
-        <a href="{% url 'story-cards:add-deck' team.id %}" class="btn btn-primary" role="button">Add a deck to the team</a>
     </div>
 {% endblock %}

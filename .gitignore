@@ -9,4 +9,5 @@ accounts/migrations/__pycache__/
 accounts/__pycache__/
 __pycache__/
 sent_emails/
+media/
 

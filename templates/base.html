@@ -14,22 +14,21 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
-      <a class="navbar-brand" href="#">StoryCards</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls=
-              "navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="navbar-brand">StoryCards</div>
+
+
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           {% if request.user.is_superuser %}
           <a class="nav-item nav-link" href="{% url 'story-cards:list-teams' %}">All Teams</a>
           <a class="nav-item nav-link" href="{% url 'story-cards:list-decks' %}">All Decks</a>
           {% endif %}
-          <a class="nav-item nav-link" href="{% url 'story-cards:list-user-teams' %}">My Teams</a>
+          <a class="nav-item nav-link" href="{% url 'story-cards:list-user-teams' %}">My teams</a>
+          <a class="nav-item nav-link" href="{% url 'story-cards:list-user-decks' %}">My decks</a>
         </div>
       </div>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="form-inline" method="get" action="{% url 'story-cards:search-deck' %}">
+        <input class="form-control mr-sm-2" name="deck_phrase" type="search" placeholder="Search for decks" aria-label="Search">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </nav>

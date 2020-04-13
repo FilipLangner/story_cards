@@ -36,4 +36,6 @@ urlpatterns = [
          name='delete-flashcard'),
     path('play/<int:deck_id>/', views.PlayStoryCardsView.as_view(), name='play-storycards'),
     path('learn_flashcards/<int:deck_id>/', views.LearnFlashcardsView.as_view(), name='learn-flashcards'),
+    path('user_decks/', views.ListLoggedUserDecksView.as_view(), name='list-user-decks'),
+    path('search/', views.MySearchView.as_view(), name='search-deck'),
 ]

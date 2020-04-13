@@ -26,7 +26,6 @@ class ListLoggedUserTeamsView(generic.ListView):
     context_object_name = "team_list"
 
     def get_queryset(self):
-        # return Team.objects.filter(students=self.request.user).order_by('name')
         return self.request.user.team_set.order_by('name')
 
 
@@ -203,3 +202,19 @@ class LearnFlashcardsView(generic.ListView):
         current_deck = Deck.objects.get(id=self.kwargs.get('deck_id'))
         flashcards_in_deck = Flashcard.objects.filter(deck=current_deck)
         return flashcards_in_deck
+
+class ListLoggedUserDecksView(generic.ListView):
+    model = Deck
+    template_name = "list_user_decks.html"
+    context_object_name = "deck_list"
+
+    def get_queryset(self):
+        return Deck.objects.filter(author=self.request.user).order_by('name')
+
+class MySearchView(generic.ListView):
+    model = Deck
+    template_name = "list_searched_decks.html"
+    context_object_name = "searched_deck_list"
+
+    def get_queryset(self):
+        return Deck.objects.filter(name__icontains=self.request.GET.get('deck_phrase'))
