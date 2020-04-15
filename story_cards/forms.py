@@ -27,3 +27,16 @@ class AddFlashcardForm(forms.ModelForm):
             'author': forms.HiddenInput,
             'deck': forms.HiddenInput
         }
+
+class AssignDeckToAnotherTeamForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        self.fields['team'].queryset = self.user.team_set.order_by('name')
+
+    class Meta:
+        model = Deck
+        fields = ['name', 'author', 'team']
+        widgets = {
+            # 'author': forms.HiddenInput,
+        }

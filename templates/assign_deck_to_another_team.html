@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Copy deck to another team
+{% endblock %}
+
+{% block content %}
+    <h2>Copy deck to another team</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Copy deck to this team</button>
+    </form>
+{% endblock %}

@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 
 import random
 
-from story_cards.forms import AddTeamForm, AddDeckForm, AddFlashcardForm
+from story_cards.forms import AddTeamForm, AddDeckForm, AddFlashcardForm, AssignDeckToAnotherTeamForm
 from story_cards.models import Team, Deck, Flashcard
 
 
@@ -218,3 +218,25 @@ class MySearchView(generic.ListView):
 
     def get_queryset(self):
         return Deck.objects.filter(name__icontains=self.request.GET.get('deck_phrase'))
+
+class AssignDeckToAnotherTeamView(generic.FormView):
+    form_class = AssignDeckToAnotherTeamForm
+    template_name = "assign_deck_to_another_team.html"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def get_initial(self):
+        deck_from_url = get_object_or_404(Deck, id=self.kwargs.get('deck_id'))
+        logged_in_user = self.request.user
+        # user_teams = self.request.user.team_set.order_by('name')
+        return {
+            'name': deck_from_url.name,
+            'author': logged_in_user,
+            # 'team': user_teams
+        }
+
+    def get_success_url(self):
+        pass

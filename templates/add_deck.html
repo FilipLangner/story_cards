@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Create deck</h2>
+    <h2>Create/edit deck</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -14,7 +14,7 @@
     <ul>Flashcards:
     {% for flashcard in flashcards %}
         <li>{{ flashcard }} <a href="{% url 'story-cards:delete-flashcard' team.id deck.id flashcard.id %}">Delete</a>
-            <a href="{% url 'story-cards:edit-flashcard' team.id deck.id flashcard.id %}">Edit</a>
+            <a href="{% url 'story-cards:edit-flashcard' deck.team.id deck.id flashcard.id %}">Edit</a>
         </li>
     {% endfor %}
     </ul>

@@ -15,6 +15,8 @@
             Learn</a>
         <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary" role="button">
             StoryCards</a>
+        <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-primary" role="button">
+            Add deck to another team</a>
     </div>
 {% endfor %}
 {% endblock %}
