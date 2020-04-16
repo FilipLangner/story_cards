@@ -37,9 +37,7 @@ class Deck(models.Model):
 class Flashcard(models.Model):
     source_word = models.CharField(max_length=256)
     target_word = models.CharField(max_length=256)
-    # example_usage = models.TextField()
     hint = models.CharField(max_length=256, blank=True, null=True)
-    # antonym = models.CharField(max_length=256)
     picture = models.ImageField(upload_to='pictures/%Y/%m/%d/', max_length=256, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)

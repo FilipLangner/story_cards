@@ -5,7 +5,7 @@
 {% block content %}
 {% for deck in searched_deck_list %}
     <div class="row mb-1 mt-1">
-        <div class="col col-md-4">
+        <div class="col col-md-4 ml-2">
             <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
                 {{ deck }}</a>
         </div>
@@ -13,7 +13,7 @@
             Edit deck</a>
         <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-primary mr-2" role="button">
             Learn</a>
-        <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary" role="button">
+        <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary mr-2" role="button">
             StoryCards</a>
         <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-primary" role="button">
             Add deck to another team</a>

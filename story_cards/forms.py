@@ -38,5 +38,5 @@ class AssignDeckToAnotherTeamForm(forms.ModelForm):
         model = Deck
         fields = ['name', 'author', 'team']
         widgets = {
-            # 'author': forms.HiddenInput,
+            'author': forms.HiddenInput,
         }

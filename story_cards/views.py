@@ -52,7 +52,7 @@ class ShowTeamDetailView(generic.DetailView):
         context['decks'] = team.deck_set.all()
         return context
 
-class ShowDeckDetailView(generic.DeleteView):
+class ShowDeckDetailView(generic.DetailView):
     template_name = "deck_detail.html"
     context_object_name = "deck"
 
@@ -222,6 +222,7 @@ class MySearchView(generic.ListView):
 class AssignDeckToAnotherTeamView(generic.FormView):
     form_class = AssignDeckToAnotherTeamForm
     template_name = "assign_deck_to_another_team.html"
+    success_url = reverse_lazy('story-cards:list-user-decks')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -238,5 +239,19 @@ class AssignDeckToAnotherTeamView(generic.FormView):
             # 'team': user_teams
         }
 
-    def get_success_url(self):
-        pass
+    def form_valid(self, form):
+        deck_name = form.cleaned_data['name']
+        deck_author = form.cleaned_data['author']
+        deck_team = form.cleaned_data['team']
+        new_deck = Deck.objects.create(name=deck_name, author=deck_author, team=deck_team)
+        old_deck = get_object_or_404(Deck, id=self.kwargs.get('deck_id'))
+        for flashcard in old_deck.flashcard_set.all():
+            new_flashcard = Flashcard.objects.create(
+                source_word=flashcard.source_word,
+                target_word=flashcard.target_word,
+                hint=flashcard.hint,
+                picture=flashcard.picture,
+                author=deck_author,
+                deck=new_deck
+            )
+        return super().form_valid(form)
