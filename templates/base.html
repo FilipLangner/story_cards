@@ -27,28 +27,25 @@
           <a class="nav-item nav-link" href="{% url 'story-cards:list-user-decks' %}">My decks</a>
         </div>
       </div>
-      <form class="form-inline" method="get" action="{% url 'story-cards:search-deck' %}">
+      <form class="form-inline mr-5" method="get" action="{% url 'story-cards:search-deck' %}">
         <input class="form-control mr-sm-2" name="deck_phrase" type="search" placeholder="Search for decks" aria-label="Search">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
       </form>
+      <div class="dropdown mr-5">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle=
+                "dropdown" aria-haspopup="true" aria-expanded="false">
+          Hi, {{ user }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+          <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
+        </div>
+      </div>
     </nav>
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    <br>
-
-    <footer>
-    {% block footer %}
-    {% endblock %}
-        {% if user.is_anonymous %}
-            You are not logged in <br>
-            <a href="{% url 'login' %}"> Log in </a>
-        {% else %}
-            {{ user }}
-            <a href="{% url 'logout' %}"> Log out</a>
-        {% endif %}
-    </footer>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity=
         "sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity=
