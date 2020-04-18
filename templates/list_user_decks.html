@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="list-group">
+    <div class="list-group ml-2">
     {% for deck in deck_list %}
         <br>
         <div class="row">
@@ -13,12 +13,16 @@
                 <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
                     {{ deck }} ({{ deck.team.name }})</a>
             </div>
-            <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-primary mr-2" role="button">
+            <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-info mr-2" role="button">
                 Edit deck</a>
-            <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-primary mr-2" role="button">
+            <a href="{% url 'story-cards:delete-deck' deck.id %}" class="btn btn-info mr-2" role="button">
+                Delete deck</a>
+            <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-info mr-2" role="button">
+            Add deck to another team</a>
+            <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-success mr-2" role="button">
                 Learn</a>
-            <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-primary" role="button">
-                StoryCards</a>
+            <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-success" role="button">
+                Play StoryCards</a>
         </div>
 
     {% endfor %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic, View
@@ -8,35 +9,36 @@ from story_cards.forms import AddTeamForm, AddDeckForm, AddFlashcardForm, Assign
 from story_cards.models import Team, Deck, Flashcard
 
 
-class AddTeamView(generic.CreateView):
+class AddTeamView(LoginRequiredMixin, generic.CreateView):
     form_class = AddTeamForm
     template_name = "add_team.html"
-    success_url = reverse_lazy('story-cards:list-teams')
+    success_url = reverse_lazy('story-cards:list-user-teams')
 
 
-class ListAllTeamsView(generic.ListView):
+class ListAllTeamsView(LoginRequiredMixin, generic.ListView):
     model = Team
-    template_name = "list_all_teams.html"
+    template_name = "list_user_teams.html"
     context_object_name = "team_list"
     queryset = Team.objects.all().order_by('name')
 
-class ListLoggedUserTeamsView(generic.ListView):
+
+class ListLoggedUserTeamsView(LoginRequiredMixin, generic.ListView):
     model = Team
-    template_name = "list_all_teams.html"
+    template_name = "list_user_teams.html"
     context_object_name = "team_list"
 
     def get_queryset(self):
         return self.request.user.team_set.order_by('name')
 
 
-class ListAllDecksView(generic.ListView):
+class ListAllDecksView(LoginRequiredMixin, generic.ListView):
     model = Deck
     template_name = "list_all_decks.html"
     context_object_name = "deck_list"
     queryset = Deck.objects.all().order_by('name')
 
 
-class ShowTeamDetailView(generic.DetailView):
+class ShowTeamDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "team_detail.html"
     context_object_name = "team"
 
@@ -52,7 +54,8 @@ class ShowTeamDetailView(generic.DetailView):
         context['decks'] = team.deck_set.all()
         return context
 
-class ShowDeckDetailView(generic.DetailView):
+
+class ShowDeckDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "deck_detail.html"
     context_object_name = "deck"
 
@@ -66,17 +69,18 @@ class ShowDeckDetailView(generic.DetailView):
         context['flashcards'] = deck.flashcard_set.all()
         return context
 
-class EditTeamView(generic.UpdateView):
+
+class EditTeamView(LoginRequiredMixin, generic.UpdateView):
     form_class = AddTeamForm
     template_name = "add_team.html"
-    success_url = reverse_lazy('story-cards:list-teams')
+    success_url = reverse_lazy('story-cards:list-user-teams')
 
     def get_object(self, queryset=None):
         team_id = self.kwargs.get('team_id')
         return get_object_or_404(Team, id=team_id)
 
 
-class AddDeckView(generic.CreateView):
+class AddDeckView(LoginRequiredMixin, generic.CreateView):
     form_class = AddDeckForm
     template_name = 'add_deck.html'
 
@@ -97,7 +101,7 @@ class AddDeckView(generic.CreateView):
         return context
 
 
-class AddFlashcardView(generic.CreateView):
+class AddFlashcardView(LoginRequiredMixin, generic.CreateView):
     form_class = AddFlashcardForm
     template_name = "add_flashcard.html"
 
@@ -112,7 +116,8 @@ class AddFlashcardView(generic.CreateView):
             'deck_id': self.kwargs.get('deck_id')
         })
 
-class EditFlashcardView(generic.UpdateView):
+
+class EditFlashcardView(LoginRequiredMixin, generic.UpdateView):
     form_class = AddFlashcardForm
     template_name = "add_flashcard.html"
     context_object_name = "flashcard"
@@ -133,7 +138,8 @@ class EditFlashcardView(generic.UpdateView):
             'deck_id': self.kwargs.get('deck_id')
         })
 
-class EditDeckView(generic.UpdateView):
+
+class EditDeckView(LoginRequiredMixin, generic.UpdateView):
     form_class = AddDeckForm
     template_name = "add_deck.html"
     context_object_name = "deck"
@@ -156,7 +162,7 @@ class EditDeckView(generic.UpdateView):
         })
 
 
-class DeleteFlashcardView(generic.DeleteView):
+class DeleteFlashcardView(LoginRequiredMixin, generic.DeleteView):
     template_name = "delete_flashcard.html"
     context_object_name = "flashcard"
 
@@ -176,7 +182,26 @@ class DeleteFlashcardView(generic.DeleteView):
             'deck_id': self.kwargs.get('deck_id')
         })
 
-class PlayStoryCardsView(generic.ListView):
+class DeleteDeckView(LoginRequiredMixin, generic.DeleteView):
+    template_name = "delete_deck.html"
+    context_object_name = "deck"
+    success_url = reverse_lazy("story-cards:list-user-decks")
+
+    def get_object(self, queryset=None):
+        deck_id = self.kwargs.get('deck_id')
+        return get_object_or_404(Deck, id=deck_id)
+
+class DeleteTeamView(LoginRequiredMixin, generic.DeleteView):
+    template_name = "delete_team.html"
+    context_object_name = "team"
+    success_url = reverse_lazy("story-cards:list-user-teams")
+
+    def get_object(self, queryset=None):
+        team_id = self.kwargs.get('team_id')
+        return get_object_or_404(Team, id=team_id)
+
+
+class PlayStoryCardsView(LoginRequiredMixin, generic.ListView):
     model = Flashcard
     context_object_name = "flashcard_list"
     template_name = "play_story_cards.html"
@@ -193,7 +218,8 @@ class PlayStoryCardsView(generic.ListView):
         context['deck'] = Deck.objects.get(id=self.kwargs.get('deck_id'))
         return context
 
-class LearnFlashcardsView(generic.ListView):
+
+class LearnFlashcardsView(LoginRequiredMixin, generic.ListView):
     model = Flashcard
     context_object_name = "flashcard_list"
     template_name = "learn_flashcards.html"
@@ -203,7 +229,8 @@ class LearnFlashcardsView(generic.ListView):
         flashcards_in_deck = Flashcard.objects.filter(deck=current_deck)
         return flashcards_in_deck
 
-class ListLoggedUserDecksView(generic.ListView):
+
+class ListLoggedUserDecksView(LoginRequiredMixin, generic.ListView):
     model = Deck
     template_name = "list_user_decks.html"
     context_object_name = "deck_list"
@@ -211,7 +238,8 @@ class ListLoggedUserDecksView(generic.ListView):
     def get_queryset(self):
         return Deck.objects.filter(author=self.request.user).order_by('name')
 
-class MySearchView(generic.ListView):
+
+class MySearchView(LoginRequiredMixin, generic.ListView):
     model = Deck
     template_name = "list_searched_decks.html"
     context_object_name = "searched_deck_list"
@@ -219,7 +247,8 @@ class MySearchView(generic.ListView):
     def get_queryset(self):
         return Deck.objects.filter(name__icontains=self.request.GET.get('deck_phrase'))
 
-class AssignDeckToAnotherTeamView(generic.FormView):
+
+class AssignDeckToAnotherTeamView(LoginRequiredMixin, generic.FormView):
     form_class = AssignDeckToAnotherTeamForm
     template_name = "assign_deck_to_another_team.html"
     success_url = reverse_lazy('story-cards:list-user-decks')

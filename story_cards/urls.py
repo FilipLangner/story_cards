@@ -34,6 +34,8 @@ urlpatterns = [
     path('edit_deck/<int:team_id>/<int:deck_id>/', views.EditDeckView.as_view(), name='edit-deck'),
     path('delete_flashcard/<int:team_id>/<int:deck_id>/<int:flashcard_id>/', views.DeleteFlashcardView.as_view(),
          name='delete-flashcard'),
+    path('delete_deck/<int:deck_id>/', views.DeleteDeckView.as_view(), name='delete-deck'),
+    path('delete_team/<int:team_id>/', views.DeleteTeamView.as_view(), name='delete-team'),
     path('play/<int:deck_id>/', views.PlayStoryCardsView.as_view(), name='play-storycards'),
     path('learn_flashcards/<int:deck_id>/', views.LearnFlashcardsView.as_view(), name='learn-flashcards'),
     path('user_decks/', views.ListLoggedUserDecksView.as_view(), name='list-user-decks'),
