@@ -41,4 +41,5 @@ urlpatterns = [
     path('user_decks/', views.ListLoggedUserDecksView.as_view(), name='list-user-decks'),
     path('search/', views.MySearchView.as_view(), name='search-deck'),
     path('reassign_deck/<int:deck_id>/', views.AssignDeckToAnotherTeamView.as_view(), name='re-assign-deck'),
+    path('translate/', views.translate_word, name='translate'),
 ]

@@ -5,10 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  <h2>Delete deck</h2>
-  <form method="post">
-    {% csrf_token %}
-    <p>Do you want to delete the deck: {{ flashcard }}</p>
-    <p><input type="submit" value="Yes" /><a href="{% url 'story-cards:list-user-decks' %}">Cancel</a></p>
-  </form>
+    <h2>Delete deck</h2>
+    {% if request.user == deck.author %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Do you want to delete the deck: {{ deck }}</p>
+        <p><input type="submit" value="Yes"/><a href="{% url 'story-cards:list-user-decks' %}">Cancel</a></p>
+    </form>
+    {% else %}
+    Only the author can delete the deck. Sorry.
+    {% endif %}
 {% endblock %}

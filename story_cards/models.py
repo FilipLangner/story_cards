@@ -13,6 +13,8 @@ class Team(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=256)
     students = models.ManyToManyField(User)
+    # author = models.ForeignKey(User, on_delete=models.CASCADE)
+    #  TODO add author in order to restrict access to deleting and editing teams - do after presentation (19.04)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

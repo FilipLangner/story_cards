@@ -1,7 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic, View
+
+from googletrans import Translator
 
 import random
 
@@ -73,7 +76,7 @@ class ShowDeckDetailView(LoginRequiredMixin, generic.DetailView):
 
 class EditTeamView(LoginRequiredMixin, generic.UpdateView):
     form_class = AddTeamForm
-    template_name = "add_team.html"
+    template_name = "edit_team.html"
     success_url = reverse_lazy('story-cards:list-user-teams')
 
     def get_object(self, queryset=None):
@@ -120,7 +123,7 @@ class AddFlashcardView(LoginRequiredMixin, generic.CreateView):
 
 class EditFlashcardView(LoginRequiredMixin, generic.UpdateView):
     form_class = AddFlashcardForm
-    template_name = "add_flashcard.html"
+    template_name = "edit_flashcard.html"
     context_object_name = "flashcard"
 
     def get_object(self, queryset=None):
@@ -142,7 +145,7 @@ class EditFlashcardView(LoginRequiredMixin, generic.UpdateView):
 
 class EditDeckView(LoginRequiredMixin, generic.UpdateView):
     form_class = AddDeckForm
-    template_name = "add_deck.html"
+    template_name = "edit_deck.html"
     context_object_name = "deck"
 
     def get_object(self, queryset=None):
@@ -287,3 +290,9 @@ class AssignDeckToAnotherTeamView(LoginRequiredMixin, generic.FormView):
                 deck=new_deck
             )
         return super().form_valid(form)
+
+def translate_word(request):
+    source_word = request.GET.get('word')
+    translator = Translator()
+    target_word = translator.translate(source_word)
+    return HttpResponse(target_word.text)

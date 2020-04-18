@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Create deck</h2>
+    {% if request.user == deck.author %}
+    <h2>Edit deck</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -19,4 +20,7 @@
     {% endfor %}
     </ul>
     <a href="{% url 'story-cards:team-detail' team.id %}" class="btn btn-info mr-2" role="button">Done</a>
+    {% else %}
+    Only the author can edit the deck. Sorry.
+    {% endif %}
 {% endblock %}

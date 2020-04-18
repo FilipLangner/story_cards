@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Create team
+    Edit flashcard
 {% endblock %}
 
 {% block content %}
-  <h2>Create team</h2>
-  <form method="post">
+  <h2>Edit flashcard</h2>
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Done</button>
