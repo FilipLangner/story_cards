@@ -5,26 +5,46 @@
 {% endblock %}
 
 {% block content %}
-    <div class="list-group ml-2">
-    {% for deck in deck_list %}
-        <br>
-        <div class="row">
-            <div class="col col-md-4">
-                <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
-                    {{ deck }} ({{ deck.team.name }})</a>
-            </div>
-            <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-info mr-2" role="button">
-                Edit deck</a>
-            <a href="{% url 'story-cards:delete-deck' deck.id %}" class="btn btn-info mr-2" role="button">
-                Delete deck</a>
-            <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-info mr-2" role="button">
-            Add deck to another team</a>
-            <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-success mr-2" role="button">
-                Learn</a>
-            <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-success" role="button">
-                Play StoryCards</a>
+    <div style="height: 460px">
+        <div class="list-group ml-2">
+            {% for deck in deck_list %}
+                <br>
+                <div class="row">
+                    <div class="col col-md-4">
+                        <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
+                            {{ deck }} ({{ deck.team.name }})</a>
+                    </div>
+                    <a href="{% url 'story-cards:edit-deck' deck.team.id deck.id %}" class="btn btn-info mr-2"
+                       role="button">
+                        Edit deck</a>
+                    <a href="{% url 'story-cards:delete-deck' deck.id %}" class="btn btn-info mr-2" role="button">
+                        Delete deck</a>
+                    <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-info mr-2" role="button">
+                        Add deck to another team</a>
+                    <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-success mr-2"
+                       role="button">
+                        Learn</a>
+                    <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-success" role="button">
+                        Play StoryCards</a>
+                </div>
+            {% endfor %}
         </div>
-
-    {% endfor %}
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            {% for page in paginator.page_range %}
+                <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

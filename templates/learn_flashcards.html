@@ -3,65 +3,66 @@
 {% block content %}
     <!--Carousel Wrapper-->
     <div id="carousel-example-1z" class="carousel slide carousel-fade mt-5" data-ride="carousel" style="height: 350px">
-      <!--Slides-->
-      <div class="carousel-inner my-auto" role="listbox">
-        <!--First slide-->
-        <div class="carousel-item active" style="height: 350px">
-            <div class="maincontainer">
-                <div class="thecard">
-                    <div class="thefront">
-                        <h1>{{ flashcard_list.0.source_word }}</h1>
-                        <p></p>
-                    </div>
-                    <div class="theback">
-                        <h1>{{ flashcard_list.0.target_word }}</h1>
-                        <p>
-                        {% if flashcard_list.0.picture %}
-                            <div class="my-image-container">
-                                <img class="my-image" src="{{ flashcard_list.0.picture.url }}">
-                            </div>
-                        {% endif %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% for flashcard in flashcard_list|slice:"1:" %}
-        <div class="carousel-item" style="height: 350px">
-            <div class="maincontainer">
-                <div class="thecard">
-                    <div class="thefront">
-                        <h1>{{ flashcard.source_word }}</h1>
-                        <p></p>
-                    </div>
-                    <div class="theback">
-                        <h1>{{ flashcard.target_word }}</h1>
-                        <p>
-                        {% if flashcard.picture %}
-                            <div class="my-image-container">
-                                <img class="my-image" src="{{ flashcard.picture.url }}">
-                            </div>
-                        {% endif %}
-                        </p>
+        <!--Slides-->
+        <div class="carousel-inner my-auto" role="listbox">
+            <!--First slide-->
+            <div class="carousel-item active" style="height: 350px">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>{{ flashcard_list.0.source_word }}</h1>
+                            <p></p>
+                        </div>
+                        <div class="theback">
+                            <h1>{{ flashcard_list.0.target_word }}</h1>
+                            <p>
+                                {% if flashcard_list.0.picture %}
+                                    <div class="my-image-container">
+                                        <img class="my-image" src="{{ flashcard_list.0.picture.url }}">
+                                    </div>
+                                {% endif %}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
 
-      </div>
-      <!--/.Slides-->
-      <!--Controls-->
-      <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-      <!--/.Controls-->
+            {% for flashcard in flashcard_list|slice:"1:" %}
+                <div class="carousel-item" style="height: 350px">
+                    <div class="maincontainer">
+                        <div class="thecard">
+                            <div class="thefront">
+                                <h1>{{ flashcard.source_word }}</h1>
+                                <p></p>
+                            </div>
+                            <div class="theback">
+                                <h1>{{ flashcard.target_word }}</h1>
+                                <p>
+                                    {% if flashcard.picture %}
+                                        <div class="my-image-container">
+                                            <img class="my-image" src="{{ flashcard.picture.url }}">
+                                        </div>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        <!--/.Slides-->
+        <!--Controls-->
+
+        <a class="carousel-control-prev ml-5" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon ml-5" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next mr-5" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon mr-5" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <!--/.Controls-->
     </div>
     <!--/.Carousel Wrapper-->
 {% endblock %}

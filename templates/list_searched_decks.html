@@ -3,18 +3,52 @@
 {% block title %} Results {% endblock %}
 
 {% block content %}
-{% for deck in searched_deck_list %}
-    <div class="row mb-1 mt-1">
-        <div class="col col-md-4 ml-2">
-            <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
-                {{ deck }}</a>
-        </div>
-        <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-info mr-2" role="button">
-        Add deck to another team</a>
-        <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-success mr-2" role="button">
-            Learn</a>
-        <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-success" role="button">
-            Play StoryCards</a>
+    <div style="height: 460px">
+        {% if request.GET.deck_phrase %}
+            {% for deck in searched_deck_list %}
+                <div class="row mb-1 mt-1">
+                    <div class="col col-md-4 ml-2">
+                        <a href="{{ deck.get_absolute_url }}" class="list-group-item list-group-item-action">
+                            {{ deck }}</a>
+                    </div>
+                    <a href="{% url 'story-cards:re-assign-deck' deck.id %}" class="btn btn-info mr-2" role="button">
+                        Add deck to another team</a>
+                    <a href="{% url 'story-cards:learn-flashcards' deck.id %}" class="btn btn-success mr-2"
+                       role="button">
+                        Learn</a>
+                    <a href="{% url 'story-cards:play-storycards' deck.id %}" class="btn btn-success" role="button">
+                        Play StoryCards</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            No results
+        {% endif %}
     </div>
-{% endfor %}
+    {% if request.GET.deck_phrase %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="{% if request.GET.deck_phrase %}?deck_phrase=
+                               {{ request.GET.deck_phrase }}{% else %}?deck_phrase={% endif %}&page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+                {% for page in paginator.page_range %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="{% if request.GET.deck_phrase %}?deck_phrase=
+                               {{ request.GET.deck_phrase }}{% else %}?deck_phrase={% endif %}&page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="{% if request.GET.deck_phrase %}?deck_phrase=
+                               {{ request.GET.deck_phrase }}{% else %}?deck_phrase={% endif %}&page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock %}
