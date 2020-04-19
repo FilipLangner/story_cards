@@ -7,7 +7,7 @@ function translate_word() {
         url: address,
         success: function (data) {
             let target_word = $("#id_target_word");
-            target_word.html(data);
+            target_word.val(data);
         },
         error: function (data) {
             alert('Something went wrong');
@@ -17,5 +17,10 @@ function translate_word() {
 
 document.addEventListener("DOMContentLoaded", function () {
     let source_input = $("#id_source_word");
-    source_input.click(translate_word);
+    source_input.keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+        translate_word();
+    }
+    });
 });

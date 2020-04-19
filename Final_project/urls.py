@@ -18,6 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from django.contrib.auth import views
 
 
 
@@ -25,6 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', views.LoginView.as_view(), name='login'),
     path('story_cards/', include('story_cards.urls', namespace="story-cards")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
